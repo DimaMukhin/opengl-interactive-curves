@@ -8,9 +8,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
+#include <iostream>
 
 const char *WINDOW_TITLE = "A2Q1";
 const double FRAME_RATE_MS = 1000.0/60.0;
+const float WIDTH = 640;
+const float HEIGHT = 640;
 
 GLuint modelUniformLocation, viewUniformLocation, projectionUniformLocation;
 
@@ -88,9 +91,14 @@ void keyboard(unsigned char key, int x, int y)
 void mouse(int button, int state, int x, int y)
 {
     if (state == GLUT_DOWN) {
-       switch(button) {
-          
-       }
+		GLfloat tx = x / WIDTH;
+		GLfloat ty = y / HEIGHT;
+		GLfloat worldX = 2 * tx - 1;
+		GLfloat worldY = -2 * ty + 1;
+		std::cout << worldX << " " << worldY << std::endl;
+
+		cps->push_back(new ControlPoint(glm::vec4(worldX, worldY, 0.0f, 1.0f), modelUniformLocation));
+		bez->generateBezierCurve();
     }
 }
 

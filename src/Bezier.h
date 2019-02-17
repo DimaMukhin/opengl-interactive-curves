@@ -14,6 +14,8 @@ public:
 
 	void display();
 
+	void generateBezierCurve();
+
 	~Bezier();
 
 private:
@@ -21,6 +23,4 @@ private:
 	std::vector<glm::vec4> *vertices;
 	Mesh *curve;
 	GLuint vertexPositionAttribLocation;
-
-	void generateBezierCurve();
 };
