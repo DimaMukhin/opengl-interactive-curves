@@ -96,10 +96,6 @@ void mouse(int button, int state, int x, int y)
 		GLfloat ty = y / HEIGHT;
 		GLfloat worldX = 2 * tx - 1;
 		GLfloat worldY = -2 * ty + 1;
-		std::cout << worldX << " " << worldY << std::endl;
-
-		bool test = (*cps)[0]->pointInControlPoint(worldX, worldY);
-		std::cout << test << std::endl;
 
 		if (selectedCP == NULL) {
 			for (int i = 0; i < cps->size(); i++) {
