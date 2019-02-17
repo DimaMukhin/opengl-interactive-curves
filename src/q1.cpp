@@ -88,6 +88,7 @@ void keyboard(unsigned char key, int x, int y)
 
 //----------------------------------------------------------------------------
 
+ControlPoint *selectedCP = NULL;
 void mouse(int button, int state, int x, int y)
 {
     if (state == GLUT_DOWN) {
@@ -97,8 +98,27 @@ void mouse(int button, int state, int x, int y)
 		GLfloat worldY = -2 * ty + 1;
 		std::cout << worldX << " " << worldY << std::endl;
 
-		cps->push_back(new ControlPoint(glm::vec4(worldX, worldY, 0.0f, 1.0f), modelUniformLocation));
-		bez->generateBezierCurve();
+		bool test = (*cps)[0]->pointInControlPoint(worldX, worldY);
+		std::cout << test << std::endl;
+
+		if (selectedCP == NULL) {
+			for (int i = 0; i < cps->size(); i++) {
+				if ((*cps)[i]->pointInControlPoint(worldX, worldY)) {
+					selectedCP = (*cps)[i];
+					break;
+				}
+			}
+
+			if (selectedCP == NULL) {
+				cps->push_back(new ControlPoint(glm::vec4(worldX, worldY, 0.0f, 1.0f), modelUniformLocation));
+				bez->generateBezierCurve();
+			}
+		}
+		else {
+			selectedCP->setLocation(glm::vec4(worldX, worldY, 0.0f, 1.0f));
+			bez->generateBezierCurve();
+			selectedCP = NULL;
+		}
     }
 }
 

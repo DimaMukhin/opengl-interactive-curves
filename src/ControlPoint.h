@@ -25,6 +25,8 @@ public:
 
 	void setLocation(glm::vec4 newLocation);
 
+	bool pointInControlPoint(GLfloat x, GLfloat y);
+
 	~ControlPoint();
 
 private:

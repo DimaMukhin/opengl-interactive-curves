@@ -51,6 +51,12 @@ void ControlPoint::setLocation(glm::vec4 newLocation)
 	location = newLocation;
 }
 
+bool ControlPoint::pointInControlPoint(GLfloat x, GLfloat y)
+{
+	return x <= location.x + 0.03 && x >= location.x - 0.03
+			&& y <= location.y + 0.03 && y >= location.y - 0.03;
+}
+
 ControlPoint::~ControlPoint()
 {
 }
