@@ -153,11 +153,13 @@
   <ItemGroup>
     <ClInclude Include="..\src\Bezier.h" />
     <ClInclude Include="..\src\common.h" />
+    <ClInclude Include="..\src\ControlPoint.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Bezier.cpp" />
+    <ClCompile Include="..\src\ControlPoint.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\q1.cpp" />
   </ItemGroup>
