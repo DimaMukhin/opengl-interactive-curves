@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "Bezier.h"
+#include "CatmullRom.h"
 #include "ControlPoint.h"
 
 #include <glm/glm.hpp>
@@ -19,6 +20,9 @@ GLuint modelUniformLocation, viewUniformLocation, projectionUniformLocation;
 
 std::vector<ControlPoint*> *cps;
 Bezier *bez;
+CatmullRom *cat;
+
+int currCurve = 0; // 0 == bezier, 1 == catmull-rom, 2 == b-spline
 
 //----------------------------------------------------------------------------
 
@@ -54,6 +58,7 @@ void init()
    }
 
    bez = new Bezier(cps, vPosition);
+   cat = new CatmullRom(cps, vPosition);
 
    glEnable(GL_DEPTH_TEST);
    glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -65,25 +70,32 @@ void display(void)
 {
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-   bez->display();
-   for (int i = 0; i < cps->size(); i++) {
-	   (*cps)[i]->display();
-   }
+	if (currCurve == 0)
+		bez->display();
+	else if (currCurve == 1)
+		cat->display();
 
-   glutSwapBuffers();
-   glFinish();
+	for (int i = 0; i < cps->size(); i++) {
+		(*cps)[i]->display();
+	}
+
+	glutSwapBuffers();
+	glFinish();
 }
 
 //----------------------------------------------------------------------------
 
 void keyboard(unsigned char key, int x, int y)
 {
-    switch(key) {
-       case 033: // Escape Key
-       case 'q': case 'Q':
-          exit(EXIT_SUCCESS);
-          break;
-    }
+	switch(key) {
+		case 033: // Escape Key
+		case 'q': case 'Q':
+			exit(EXIT_SUCCESS);
+			break;
+		case ' ':
+			currCurve = (currCurve + 1) % 3;
+			break;
+	}
 }
 
 //----------------------------------------------------------------------------
@@ -108,11 +120,13 @@ void mouse(int button, int state, int x, int y)
 			if (selectedCP == NULL) {
 				cps->push_back(new ControlPoint(glm::vec4(worldX, worldY, 0.0f, 1.0f), modelUniformLocation));
 				bez->generateBezierCurve();
+				cat->generateCatmullRomCurve();
 			}
 		}
 		else {
 			selectedCP->setLocation(glm::vec4(worldX, worldY, 0.0f, 1.0f));
 			bez->generateBezierCurve();
+			cat->generateCatmullRomCurve();
 			selectedCP = NULL;
 		}
     }
