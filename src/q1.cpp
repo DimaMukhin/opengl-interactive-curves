@@ -3,6 +3,7 @@
 #include "common.h"
 #include "Bezier.h"
 #include "CatmullRom.h"
+#include "BSpline.h"
 #include "ControlPoint.h"
 
 #include <glm/glm.hpp>
@@ -21,6 +22,7 @@ GLuint modelUniformLocation, viewUniformLocation, projectionUniformLocation;
 std::vector<ControlPoint*> *cps;
 Bezier *bez;
 CatmullRom *cat;
+BSpline *bsp;
 
 int currCurve = 0; // 0 == bezier, 1 == catmull-rom, 2 == b-spline
 
@@ -59,6 +61,7 @@ void init()
 
    bez = new Bezier(cps, vPosition);
    cat = new CatmullRom(cps, vPosition);
+   bsp = new BSpline(cps, vPosition);
 
    glEnable(GL_DEPTH_TEST);
    glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -70,10 +73,12 @@ void display(void)
 {
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (currCurve == 0)
-		bez->display();
-	else if (currCurve == 1)
-		cat->display();
+   if (currCurve == 0)
+	   bez->display();
+   else if (currCurve == 1)
+	   cat->display();
+   else
+	   bsp->display();
 
 	for (int i = 0; i < cps->size(); i++) {
 		(*cps)[i]->display();
@@ -121,12 +126,14 @@ void mouse(int button, int state, int x, int y)
 				cps->push_back(new ControlPoint(glm::vec4(worldX, worldY, 0.0f, 1.0f), modelUniformLocation));
 				bez->generateBezierCurve();
 				cat->generateCatmullRomCurve();
+				bsp->generateBSplineCurve();
 			}
 		}
 		else {
 			selectedCP->setLocation(glm::vec4(worldX, worldY, 0.0f, 1.0f));
 			bez->generateBezierCurve();
 			cat->generateCatmullRomCurve();
+			bsp->generateBSplineCurve();
 			selectedCP = NULL;
 		}
     }

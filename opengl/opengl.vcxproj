@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Bezier.h" />
+    <ClInclude Include="..\src\BSpline.h" />
     <ClInclude Include="..\src\CatmullRom.h" />
     <ClInclude Include="..\src\common.h" />
     <ClInclude Include="..\src\ControlPoint.h" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Bezier.cpp" />
+    <ClCompile Include="..\src\BSpline.cpp" />
     <ClCompile Include="..\src\CatmullRom.cpp" />
     <ClCompile Include="..\src\ControlPoint.cpp" />
     <ClCompile Include="..\src\main.cpp" />
