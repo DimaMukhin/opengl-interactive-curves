@@ -8,6 +8,7 @@ BSpline::BSpline(std::vector<ControlPoint*> *controlPoints, GLuint vertexPositio
 	generateBSplineCurve();
 }
 
+// display the curve
 void BSpline::display()
 {
 	curve->display(GL_LINE_STRIP);
@@ -17,7 +18,7 @@ BSpline::~BSpline()
 {
 }
 
-// TODO: ask prof about how to convert this into matrix multiplication
+// construct the curve
 void BSpline::generateBSplineCurve()
 {
 	delete vertices;

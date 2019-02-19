@@ -5,6 +5,7 @@ Mesh::Mesh(std::vector<glm::vec4> *vertices)
 	this->vertices = vertices;
 }
 
+// initialize a new mesh
 void Mesh::init(GLuint vertexPositionAttribLocation)
 {
 	glGenVertexArrays(1, &VAO);
@@ -22,6 +23,7 @@ void Mesh::init(GLuint vertexPositionAttribLocation)
 	glBindVertexArray(0);
 }
 
+// display the mesh
 void Mesh::display()
 {
 	glBindVertexArray(VAO);
@@ -31,6 +33,7 @@ void Mesh::display()
 	glBindVertexArray(0);
 }
 
+// display the mesh with a certain type (example: GL_LINE_LOOP)
 void Mesh::display(int type)
 {
 	glBindVertexArray(VAO);

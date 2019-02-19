@@ -8,6 +8,7 @@ CatmullRom::CatmullRom(std::vector<ControlPoint*> *controlPoints, GLuint vertexP
 	generateCatmullRomCurve();
 }
 
+// display the curve
 void CatmullRom::display()
 {
 	curve->display(GL_LINE_STRIP);
@@ -17,7 +18,7 @@ CatmullRom::~CatmullRom()
 {
 }
 
-// TODO: ask prof about how to convert this into matrix multiplication
+// construct the curve
 void CatmullRom::generateCatmullRomCurve()
 {
 	delete vertices;

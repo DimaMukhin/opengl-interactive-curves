@@ -8,6 +8,7 @@ Bezier::Bezier(std::vector<ControlPoint*> *controlPoints, GLuint vertexPositionA
 	generateBezierCurve();
 }
 
+// display the curve
 void Bezier::display()
 {
 	curve->display(GL_LINE_STRIP);
@@ -17,7 +18,7 @@ Bezier::~Bezier()
 {
 }
 
-// TODO: ask prof about how to convert this into matrix multiplication
+// construct the curve
 void Bezier::generateBezierCurve()
 {
 	delete vertices;
