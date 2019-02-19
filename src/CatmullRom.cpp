@@ -45,7 +45,7 @@ void CatmullRom::generateCatmullRomCurve()
 			p2.x, p2.y, 0.0f, 1.0f,
 			p3.x, p3.y, 0.0f, 1.0f);
 
-		for (float t = 0.0f; t <= 1.0001f; t += 0.1f) {
+		for (float t = 0.0f; t <= 1.0001f; t += 0.05f) {
 			glm::mat4 tMatrix = glm::mat4(t*t*t, 0.0f, 0.0f, 0.0f,
 				0.0f, t*t, 0.0f, 0.0f,
 				0.0f, 0.0f, t, 0.0f,

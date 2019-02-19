@@ -99,6 +99,9 @@ void keyboard(unsigned char key, int x, int y)
 			break;
 		case ' ':
 			currCurve = (currCurve + 1) % 3;
+			if (currCurve == 0) std::cout << "displaying Bezier curve" << std::endl;
+			else if (currCurve == 1) std::cout << "displaying Catmull-Rom curve" << std::endl;
+			else std::cout << "displaying uniform B-Spline curve" << std::endl;
 			break;
 	}
 }
@@ -127,6 +130,10 @@ void mouse(int button, int state, int x, int y)
 				bez->generateBezierCurve();
 				cat->generateCatmullRomCurve();
 				bsp->generateBSplineCurve();
+				std::cout << "placed a new control point at (" << worldX << ", " << worldY << ")" << std::endl;
+			}
+			else {
+				std::cout << "picked up a control point, waiting for placement location input..." << std::endl;
 			}
 		}
 		else {
@@ -135,6 +142,7 @@ void mouse(int button, int state, int x, int y)
 			cat->generateCatmullRomCurve();
 			bsp->generateBSplineCurve();
 			selectedCP = NULL;
+			std::cout << "moved the control point to (" << worldX << ", " << worldY << ")" << std::endl;
 		}
     }
 }
